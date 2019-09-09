@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>NHS Hour Tracker</title>
+</head>
+<body>
+    <div class="card">
+        <form id="logform">
+            Date:
+            <input type="date" name="date" id="date">
+            <br>
+            Amount of Time:
+            <input type="number" name="time" id="time" min="0" max="99990">
+            <select name="unit" id="unit">
+                <option value="min">min(s)</option>
+                <option value="hour">hr(s)</option>
+            </select>
+            <br>
+            Description:
+            <input type="text" name="desc" id="desc">
+            <input type="submit" value="Log Time" id="submit">
+        </form>
+    </div>
+</body>
+</html>

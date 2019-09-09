@@ -1,0 +1,22 @@
+{
+  "name": "nhshours",
+  "version": "1.0.0",
+  "description": "Volunteer hour tracker for National Honor Society",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mackhack321/nhshours.git"
+  },
+  "author": "Mack Stanley",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mackhack321/nhshours/issues"
+  },
+  "homepage": "https://github.com/mackhack321/nhshours#readme",
+  "dependencies": {
+    "electron": "^6.0.7"
+  }
+}
