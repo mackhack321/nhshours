@@ -1,8 +1,10 @@
 body {
     background-color: #212121;
+    font-family: sans-serif;
 }
 
-h1 {
+p {
+    padding: 10px;
     color: white;
 }
 

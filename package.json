@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/mackhack321/nhshours#readme",
   "dependencies": {
-    "electron": "^6.0.9"
+    "electron": "^6.0.9",
+    "mysql": "^2.17.1"
   }
 }
