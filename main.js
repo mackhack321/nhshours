@@ -19,9 +19,7 @@ function getInput() {
 
 function buildQuery(data) {
     var data = getInput();
-    console.log(data);
     let query = "INSERT INTO hours (date, hours, description) VALUES ('" + data.date + "', '" + data.amt + "', '" + data.desc + "');";
-    console.log(query);
 }
 
 function createWindow() {
