@@ -17,7 +17,7 @@ function getInput() {
     return data;
 }
 
-function buildQuery(data) {
+function buildQuery() {
     var data = getInput();
     let query = "INSERT INTO hours (date, hours, description) VALUES ('" + data.date + "', '" + data.amt + "', '" + data.desc + "');";
 }
