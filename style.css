@@ -3,13 +3,46 @@ body {
     font-family: sans-serif;
 }
 
-p {
+h1 {
+    text-align: center;
+    font-family: serif;
+}
+
+p, h1, td, th {
     padding: 10px;
     color: white;
+    font-family: serif;
+}
+
+th, td {
+    text-align: center;
+    border: solid black 1px;
+}
+
+th {
+    font-size: 25px;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
 }
 
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 2);
     background-color: #424242;
-    width: 50%;
+    margin-left: 10px;
+}
+
+.col {
+    float: left;
+}
+
+.left {
+    width: 33.33333%;
+}
+
+.right {
+    width: 66.66666%
 }

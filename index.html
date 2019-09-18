@@ -4,25 +4,64 @@
     <link rel="stylesheet" href="style.css">
     <title>NHS Hour Tracker</title>
 </head>
-<body>
-    <div class="card">
-        <p>
-            Date:
-            <input type="date" name="date" id="date">
-        </p>
-        <p>
-            Amount of Time:
-            <input type="number" name="time" id="time" min="0" max="99990">
-            <select name="unit" id="unit">
-                <option value="min">min(s)</option>
-                <option value="hour">hr(s)</option>
-            </select>
-        </p>
-        <p>
-            Description:
-            <input type="text" name="desc" id="desc">
-            <button type="submit" onclick="buildQuery()">Log Time</button>
-        </p>
+<body onload="updateTotal()">
+    <div class="col left">
+        <div class="card">
+            <p>
+                Date:
+                <input type="date" name="date" id="date">
+            </p>
+            <p>
+                Amount of Time:
+                <input type="number" name="time" id="time" min="0" max="99990">
+                <select name="unit" id="unit">
+                    <option value="min">min(s)</option>
+                    <option value="hour">hr(s)</option>
+                </select>
+            </p>
+            <p>
+                Description:
+                <input type="text" name="desc" id="desc">
+                <button type="submit" onclick="buildQuery()">Log Time</button>
+            </p>
+        </div>
+    </div>
+
+    <div class="col right">
+        <div class="card">
+            <h1>Logged Hours</h1>
+            <table id="datatable">
+                <tbody>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>09-24-2001</td>
+                        <td>2 hr</td>
+                        <td>Worked at GES</td>
+                    </tr>
+                    <tr>
+                        <td>09-24-2001</td>
+                        <td>2 hr</td>
+                        <td>Worked at GES</td>
+                    </tr>
+                    <tr>
+                        <td>09-24-2001</td>
+                        <td>2 hr</td>
+                        <td>Worked at GES</td>
+                    </tr>
+                    <tr>
+                        <td>09-24-2001</td>
+                        <td>2.32 hr</td>
+                        <td>Worked at GES</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h1 id="total">Total: </h1>
+        </div>
     </div>
 
     <script src="main.js"></script>
