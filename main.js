@@ -22,9 +22,9 @@ function buildQuery() {
 
 function sendToDB(query) {
     var con = sql.createConnection({
-        host: "10.0.0.235",
-        user: "code",
-        password: "DBPASS"
+        host: creds.host,
+        user: creds.username,
+        password: creds.pass
     });
 
     con.connect(function(err) {
