@@ -1,7 +1,4 @@
-const { app, BrowserWindow } = require("electron");
 const sql = require('mysql');
-
-let win;
 
 function getInput() {
     let date = document.getElementById("date").value;
@@ -21,17 +18,3 @@ function buildQuery() {
     var data = getInput();
     let query = "INSERT INTO hours (date, hours, description) VALUES ('" + data.date + "', '" + data.amt + "', '" + data.desc + "');";
 }
-
-function createWindow() {
-    win = new BrowserWindow({
-        width: 800,
-        height: 600,
-        webPreferences: {
-            nodeIntegration: true
-        }
-    });
-
-    win.loadFile("./index.html");
-}
-
-app.on('ready', createWindow);
