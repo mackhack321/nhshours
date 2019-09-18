@@ -24,7 +24,7 @@ function sendToDB(query) {
     var con = sql.createConnection({
         host: "10.0.0.235",
         user: "code",
-        password: "Excision1519"
+        password: "DBPASS"
     });
 
     con.connect(function(err) {
