@@ -1,3 +1,4 @@
+const { app, BrowserWindow } = require('electron');
 const sql = require('mysql');
 
 function getInput() {
@@ -24,12 +25,16 @@ function sendToDB(query) {
     var con = sql.createConnection({
         host: creds.host,
         user: creds.username,
-        password: creds.pass
+        password: creds.pass,
+        database: creds.db
     });
 
     con.connect(function(err) {
         if (err) throw err;
-        console.log("established connection");
+        con.query(query, function (err, result) {
+            if (err) throw err;
+            console.log("Query Result: " + result);
+        })
     });
 }
 
@@ -44,3 +49,19 @@ function updateTotal() {
 
     totalhtml.innerHTML = "Total: " + sum + " hours<br>" + (50.0-sum) + " to go!";
 }
+
+function createWindow () {
+    // Create the browser window.
+    let win = new BrowserWindow({
+      width: 1000,
+      height: 800,
+      webPreferences: {
+        nodeIntegration: true
+      }
+    })
+  
+    // and load the index.html of the app.
+    win.loadFile('index.html')
+}
+
+app.on("ready", createWindow);
