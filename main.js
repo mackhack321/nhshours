@@ -2,10 +2,17 @@ const { app, BrowserWindow, dialog } = require('electron');
 const sql = require('mysql');
 
 let win;
-var con;
+var conpool;
 
 function onload() {
-    con = sql.createConnection({host: creds.host, user: creds.username, password: creds.pass, database: creds.db});
+    conpool = sql.createPool({
+       connectionLimit: 10,
+       user: creds.username,
+       host: creds.host,
+       password: creds.pass,
+       database: creds.db,
+       dateStrings: 'date'
+    });
     updateTotal();
 }
 
@@ -32,34 +39,44 @@ function buildQuery() {
 function sendToDB(query) {
     con.connect(function (err) {
         if (err) {
-            dialog.showMessageBox(win, {message:"TESTING"});
+            alert(err);
         }
         con.query(query, function (err, result) {
-            if (err) throw err;
+        if (err) {
+            alert(err);
+        }
             console.log("Query Result: " + result);
         });
     });
 }
 
 function getDataFromDB() {
-    con.connect(function(err) {
-        if (err) throw err;
-        conn.query("SELECT * FROM hours;", function (err, result) {
-            return result;
+    conpool.getConnection(function (err, con) {
+        if (err) {
+            alert(err);
+        }
+        con.query("SELECT * FROM hours;", function (err, result) {
+            con.release();
+            for (let i = 0; i < result.length; i++)
+            {
+                console.log("boop " + i);
+            }
         });
     });
 }
 
 function updateTotal() {
-    var sum = 0.0;
-    var table = document.getElementById("datatable");
     var totalhtml = document.getElementById("total");
-    for (var i = 1; i < table.rows.length; i++)
-    {
-        sum += parseFloat(table.rows[i].cells[1].innerHTML.split(" ")[0]);
-    }
-
-    totalhtml.innerHTML = "Total: " + sum + " hours<br>" + (50.0-sum) + " to go!";
+    conpool.getConnection(function (err, con) {
+        if (err) {
+            alert(err);
+        }
+        con.query("SELECT SUM(hours) FROM hours;", function (err, result) {
+            con.release();
+            let sum = result[0]["SUM(hours)"];
+            totalhtml.innerHTML = "Total: " + sum + " hours<br>" + (50.0-sum) + " hours to go!";
+        });
+    });
 }
 
 function createWindow () {
