@@ -1,6 +1,7 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, dialog } = require('electron');
 const sql = require('mysql');
 
+let win;
 var con;
 
 function onload() {
@@ -30,7 +31,9 @@ function buildQuery() {
 
 function sendToDB(query) {
     con.connect(function (err) {
-        if (err) throw err;
+        if (err) {
+            dialog.showMessageBox(win, {message:"TESTING"});
+        }
         con.query(query, function (err, result) {
             if (err) throw err;
             console.log("Query Result: " + result);
@@ -60,7 +63,7 @@ function updateTotal() {
 }
 
 function createWindow () {
-    let win = new BrowserWindow({
+    win = new BrowserWindow({
       width: 1000,
       height: 800,
       webPreferences: {
