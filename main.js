@@ -38,11 +38,12 @@ function buildQuery() {
 }
 
 function sendToDB(query) {
-    con.connect(function (err) {
+    conpool.getConnection(function (err, con) {
         if (err) {
             alert(err);
         } else {
             con.query(query, function (err, result) {
+                con.release();
                 if (err) {
                     alert(err);
                 } else {
@@ -51,6 +52,8 @@ function sendToDB(query) {
             });
         }  
     });
+    getDataFromDB();
+    updateTotal();
 }
 
 function getDataFromDB() {
@@ -60,16 +63,16 @@ function getDataFromDB() {
         } else {
             con.query("SELECT * FROM hours;", function (err, result) {
                 con.release();
-                var table = document.getElementById("datatable");
-                for (let i = 0; i < result.length; i++)
-                {         
+                var table = document.getElementById("datatablebody");
+                clearTable();
+                for (let i = 0; i < result.length; i++) {         
                     var row = table.insertRow(-1);
                     var date = row.insertCell(0);
                     var time = row.insertCell(1);
                     var desc = row.insertCell(2);
 
                     date.innerHTML = result[i]["date"];
-                    time.innerHTML = result[i]["hours"];
+                    time.innerHTML = result[i]["hours"] + " hrs";
                     desc.innerHTML = result[i]["description"];
                 }
             });
@@ -92,7 +95,24 @@ function updateTotal() {
     });
 }
 
-function createWindow () {
+function clearTable() {
+    var tablebody = document.getElementById("datatablebody");
+    tablebody.innerHTML = "";
+}
+
+function clearInputs() {
+    var dateinput = document.getElementById("date");
+    var timeinput = document.getElementById("time");
+    var unitselect = document.getElementById("unit");
+    var descinput = document.getElementById("desc");
+
+    dateinput.valueAsDate = null;
+    timeinput.value = "";
+    unitselect.value = unitselect.options[0].value;
+    descinput.value = "";
+}
+
+function createWindow() {
     win = new BrowserWindow({
       width: 1000,
       height: 800,
