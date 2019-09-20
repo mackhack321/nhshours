@@ -5,13 +5,13 @@ body {
 
 h1 {
     text-align: center;
-    font-family: serif;
+    font-family: sans-serif;
 }
 
 p, h1, td, th {
     padding: 10px;
     color: white;
-    font-family: serif;
+    font-family: sans-serif;
 }
 
 th, td {

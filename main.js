@@ -14,6 +14,7 @@ function onload() {
        dateStrings: 'date'
     });
     updateTotal();
+    getDataFromDB();
 }
 
 function getInput() {
@@ -40,13 +41,15 @@ function sendToDB(query) {
     con.connect(function (err) {
         if (err) {
             alert(err);
-        }
-        con.query(query, function (err, result) {
-        if (err) {
-            alert(err);
-        }
-            console.log("Query Result: " + result);
-        });
+        } else {
+            con.query(query, function (err, result) {
+                if (err) {
+                    alert(err);
+                } else {
+                    console.log("Query Result: " + result);
+                }
+            });
+        }  
     });
 }
 
@@ -54,20 +57,23 @@ function getDataFromDB() {
     conpool.getConnection(function (err, con) {
         if (err) {
             alert(err);
-        }
-        con.query("SELECT * FROM hours;", function (err, result) {
-            con.release();
-            for (let i = 0; i < result.length; i++)
-            {
+        } else {
+            con.query("SELECT * FROM hours;", function (err, result) {
+                con.release();
                 var table = document.getElementById("datatable");
-                var row = table.insertRow(-1);
-                var date = row.insertCell(0);
-                var time = row.insertCell(1);
-                var desc = row.insertCell(2);
+                for (let i = 0; i < result.length; i++)
+                {         
+                    var row = table.insertRow(-1);
+                    var date = row.insertCell(0);
+                    var time = row.insertCell(1);
+                    var desc = row.insertCell(2);
 
-                date.innerHTML = "THIS IS WHERE YOU LEFT OFF";
-            }
-        });
+                    date.innerHTML = result[i]["date"];
+                    time.innerHTML = result[i]["hours"];
+                    desc.innerHTML = result[i]["description"];
+                }
+            });
+        }
     });
 }
 
@@ -76,12 +82,13 @@ function updateTotal() {
     conpool.getConnection(function (err, con) {
         if (err) {
             alert(err);
+        } else {
+            con.query("SELECT SUM(hours) FROM hours;", function (err, result) {
+                con.release();
+                let sum = result[0]["SUM(hours)"];
+                totalhtml.innerHTML = "Total: " + sum + " hours<br>" + (50.0-sum) + " hours to go!";
+            });
         }
-        con.query("SELECT SUM(hours) FROM hours;", function (err, result) {
-            con.release();
-            let sum = result[0]["SUM(hours)"];
-            totalhtml.innerHTML = "Total: " + sum + " hours<br>" + (50.0-sum) + " hours to go!";
-        });
     });
 }
 
