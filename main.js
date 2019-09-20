@@ -59,7 +59,13 @@ function getDataFromDB() {
             con.release();
             for (let i = 0; i < result.length; i++)
             {
-                console.log("boop " + i);
+                var table = document.getElementById("datatable");
+                var row = table.insertRow(-1);
+                var date = row.insertCell(0);
+                var time = row.insertCell(1);
+                var desc = row.insertCell(2);
+
+                date.innerHTML = "THIS IS WHERE YOU LEFT OFF";
             }
         });
     });
